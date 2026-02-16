@@ -1,0 +1,8 @@
+@model CST_350_MilestoneProject.Models.BoardViewModel
+
+@await Html.PartialAsync("_GamePanel", Model)
+
+<script>
+    // Reward ping: let the player know a reward was triggered (+10 points + neighbor reveals)
+    alert("🎁 Reward activated! +10 points");
+</script>

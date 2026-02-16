@@ -1,0 +1,21 @@
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "You Lose!";
+}
+<div class="end-game-container lose">
+    <h2>�� You Lose! ��</h2>
+    <p>Sorry, you hit a mine. Better luck next time!</p>
+
+    @if (TempData["LastScore"] != null && TempData["LastSecondsPlayed"] != null)
+    {
+        <p><strong>Score:</strong> @TempData["LastScore"]</p>
+        <p><strong>Time:</strong> @TempData["LastSecondsPlayed"] seconds</p>
+    }
+
+    <a asp-action="StartGame" class="end-button">
+        Play Again
+    </a>
+</div>

@@ -1,0 +1,65 @@
+﻿@model CST_350_MilestoneProject.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    <link rel="stylesheet" href="~/css/form.css" />
+}
+
+<form asp-action="ProcessRegister" class="form-container" method="post">
+    <h2>User Registration</h2>
+
+    <div>
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+
+    <div>
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Sex">Sex</label>
+        <select asp-for="Sex">
+            <option value="">-- Select Sex --</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <span asp-validation-for="Sex"></span>
+    </div>
+
+    <div>
+        <label asp-for="Age">Age</label>
+        <input asp-for="Age" />
+        <span asp-validation-for="Age"></span>
+    </div>
+
+    <div>
+        <label asp-for="State">State</label>
+        <input asp-for="State" />
+        <span asp-validation-for="State"></span>
+    </div>
+
+    <div>
+        <label asp-for="EmailAddress">Email Address</label>
+        <input asp-for="EmailAddress" />
+        <span asp-validation-for="EmailAddress"></span>
+    </div>
+
+    <div>
+        <label asp-for="Username">Username</label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <button type="submit">Register</button>
+</form>
+
