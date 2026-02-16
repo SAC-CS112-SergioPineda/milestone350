@@ -1,2 +1,1 @@
-# milestone350
-core project files
+# CST-350-MilestoneProject
