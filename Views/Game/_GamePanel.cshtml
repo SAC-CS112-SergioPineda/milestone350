@@ -1,0 +1,61 @@
+@model CST_350_MilestoneProject.Models.BoardViewModel
+
+<div class="board-container">
+    <h2>Minesweeper</h2>
+
+    <p class="text-muted" style="margin-bottom: 6px;">
+        Left-click to reveal a cell • Right-click to place/remove a flag
+    </p>
+
+    <p><strong>Score:</strong> <span id="scoreValue">@Model.Score</span></p>
+<p><strong>Timestamp (AJAX):</strong> <span id="timestampValue">--</span> <span class="text-muted">(Elapsed: <span id="elapsedValue">0</span>s)</span></p>
+<div style="margin-bottom:10px;">
+    <form method="post" action="/Game/SaveGame" style="display:inline;">
+        <button class="btn btn-success btn-sm" type="submit">Save Game</button>
+    </form>
+    <a class="btn btn-outline-primary btn-sm" href="/Game/ShowSavedGames" style="margin-left:6px;">Show Saved Games</a>
+</div>
+
+    <div class="board-grid"
+         style="display: grid;
+                grid-template-columns: repeat(@Model.Size, 40px);
+                grid-template-rows: repeat(@Model.Size, 40px);">
+
+        @for (int r = 0; r < Model.Size; r++)
+        {
+            for (int c = 0; c < Model.Size; c++)
+            {
+                var cell = Model.Grid[r, c];
+
+                <div class="tile">
+                    @if (!cell.IsVisited)
+                    {
+                        <button type="button"
+                                class="cell-button"
+                                data-row="@r"
+                                data-col="@c"
+                                data-flagged="@(cell.IsFlagged.ToString().ToLower())"
+                                aria-label="cell @r @c">
+                            @if (cell.IsFlagged)
+                            {
+                                <img src="~/images/Minesweeper_LAZARUS_21x21_flag.png" width="40" height="40" alt="flag" />
+                            }
+                            else
+                            {
+                                <img src="~/images/Minesweeper_LAZARUS_21x21_0.png" width="40" height="40" alt="hidden" />
+                            }
+                        </button>
+                    }
+                    else if (cell.IsBombed)
+                    {
+                        <img src="~/images/Minesweeper_LAZARUS_21x21_mine_hit.png" width="40" height="40" alt="mine" />
+                    }
+                    else
+                    {
+                        <img src="~/images/Minesweeper_LAZARUS_21x21_@(cell.NumberOfBombNeighbors).png" width="40" height="40" alt="@cell.NumberOfBombNeighbors" />
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

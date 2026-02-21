@@ -1,0 +1,7 @@
+@model CST_350_MilestoneProject.Models.BoardViewModel
+
+@await Html.PartialAsync("_GamePanel", Model)
+
+<script>
+    showStatusModal("🎉 You Win!", "Score: <strong>@Model.Score</strong><br/>All mines were flagged correctly.", "/Game/StartGame");
+</script>

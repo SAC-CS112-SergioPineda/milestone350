@@ -1,0 +1,7 @@
+@model CST_350_MilestoneProject.Models.BoardViewModel
+
+@await Html.PartialAsync("_GamePanel", Model)
+
+<script>
+    showStatusModal("🎁 Reward Activated!", "+10 points! Keep going — your board updated.", null);
+</script>

@@ -1,0 +1,111 @@
+@model CST_350_MilestoneProject.Models.BoardViewModel
+
+<div id="gamePanel">
+    @await Html.PartialAsync("_GamePanel", Model)
+</div>
+
+
+<div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusModalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="statusModalBody"></div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" id="statusModalAction" href="/Game/StartGame">Play Again</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function showStatusModal(title, message, actionUrl) {
+            $("#statusModalTitle").text(title);
+            $("#statusModalBody").html(message);
+            if (actionUrl) {
+                $("#statusModalAction").attr("href", actionUrl).show();
+            } else {
+                $("#statusModalAction").hide();
+            }
+            var modal = new bootstrap.Modal(document.getElementById("statusModal"));
+            modal.show();
+        }
+
+        // Left-click (dig)
+        $(document).on("click", ".cell-button", function () {
+            const $btn = $(this);
+
+            // Prevent digging flagged cells (milestone requirement)
+            if (($btn.data("flagged") + "") === "true") {
+                return;
+            }
+
+            $.ajax({
+                url: "/Game/HandleLeftClickAjax",
+                type: "POST",
+                data: {
+                    row: $btn.data("row"),
+                    col: $btn.data("col")
+                },
+                success: function (html) {
+                    $("#gamePanel").html(html);
+                },
+                error: function (xhr) {
+                    alert("Error updating board: " + xhr.status);
+                }
+            });
+        });
+
+        // AJAX timestamp poll (rubric requirement)
+        function refreshTimestamp() {
+            $.ajax({
+                url: "/Game/GetTimestamp",
+                type: "GET",
+                success: function (data) {
+                    // data: { serverTime, elapsedSeconds }
+                    $("#timestampValue").text(data.serverTime);
+                    $("#elapsedValue").text(data.elapsedSeconds);
+                }
+            });
+        }
+        // Refresh immediately and then every second
+        refreshTimestamp();
+        setInterval(refreshTimestamp, 1000);
+
+        // Right-click (toggle flag)
+        $(document).on("contextmenu", ".cell-button", function (e) {
+            e.preventDefault();
+
+            const $btn = $(this);
+
+            $.ajax({
+                url: "/Game/HandleRightClickAjax",
+                type: "POST",
+                data: {
+                    row: $btn.data("row"),
+                    col: $btn.data("col")
+                },
+                success: function (html) {
+                    $("#gamePanel").html(html);
+                },
+                error: function (xhr) {
+                    alert("Error flagging cell: " + xhr.status);
+                }
+            });
+
+            return false;
+        });
+    </script>
+
+    <style>
+        .board-grid { gap: 2px; margin-top: 20px; }
+        .cell-button { padding: 0; border: none; background: none; }
+    </style>
+}

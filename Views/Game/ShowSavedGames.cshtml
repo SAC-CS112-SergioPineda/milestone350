@@ -1,0 +1,46 @@
+@model List<CST_350_MilestoneProject.Models.GameSaveEntity>
+
+<h2>Saved Games</h2>
+
+<p class="text-muted">Select a game to load and continue playing, or delete it.</p>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No saved games found.</p>
+    <a class="btn btn-secondary" href="/Game/StartGame">Back</a>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date Saved</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var g in Model)
+        {
+            <tr>
+                <td>@g.Id</td>
+                <td>@g.DateSaved</td>
+                <td style="white-space:nowrap;">
+                    <form method="post" action="/Game/LoadGame" style="display:inline;">
+                        <input type="hidden" name="id" value="@g.Id" />
+                        <button class="btn btn-sm btn-primary" type="submit">Load</button>
+                    </form>
+
+                    <form method="post" action="/Game/DeleteGame" style="display:inline; margin-left:6px;">
+                        <input type="hidden" name="id" value="@g.Id" />
+                        <button class="btn btn-sm btn-danger" type="submit"
+                                onclick="return confirm('Delete this saved game?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <a class="btn btn-secondary" href="/Game/StartGame">Back</a>
+}
