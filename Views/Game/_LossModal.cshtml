@@ -1,7 +1,0 @@
-@model CST_350_MilestoneProject.Models.BoardViewModel
-
-@await Html.PartialAsync("_GamePanel", Model)
-
-<script>
-    showStatusModal("💣 You Lose!", "Score: <strong>@Model.Score</strong><br/>You hit a mine.", "/Game/StartGame");
-</script>
