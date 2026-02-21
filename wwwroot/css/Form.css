@@ -1,0 +1,67 @@
+﻿.form-container {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7a3cff, #4dffb2);
+    box-shadow: 0 10px 30px rgba(122, 60, 255, 0.4);
+    color: #ffffff;
+}
+
+    /* Title */
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #ffffff;
+    }
+
+    /* Labels */
+    .form-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #f0eaff;
+    }
+
+    /* Inputs & Selects */
+    .form-container input,
+    .form-container select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #7a3cff;
+        border-radius: 6px;
+        background-color: #eafff3; /* light green */
+        color: #4a1a75; /* deep purple text */
+
+        box-sizing: border-box;
+        outline: none;
+        transition: 0.25s ease;
+    }
+
+        /* Focus state */
+        .form-container input:focus,
+        .form-container select:focus {
+            border-color: #4dffb2;
+            box-shadow: 0 0 8px rgba(77, 255, 178, 0.8);
+        }
+
+    /* Button */
+    .form-container button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(90deg, #7a3cff, #4dffb2);
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        transition: 0.25s ease;
+    }
+
+        /* Button hover */
+        .form-container button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 15px rgba(122, 60, 255, 0.6), 0 0 15px rgba(77, 255, 178, 0.6);
+        }
